@@ -10,9 +10,9 @@
 <div class="d-flex" *ngIf="viewPortWidth <= 480">
   <div class="video-wrapper">
     <webcam [trigger]="triggerObservable" [imageQuality]="0.92" [captureImageData]="true" (initError)="error($event)"
-      (imageCapture)="capture($event)" width='320' height='480' allowCameraSwitch=false mirrorImage='never'></webcam>
+      (imageCapture)="capture($event)" width='320' height='420' allowCameraSwitch=false mirrorImage='never'></webcam>
 
-    <canvas #canvas id="canvas" [width]="320" [height]="480"></canvas>
+    <canvas #canvas id="canvas" [width]="320" [height]="420"></canvas>
   </div>
 </div>
 

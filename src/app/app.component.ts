@@ -109,20 +109,24 @@ export class AppComponent {
     });
     voices.forEach(function(obj,index){obj.id = index;});
     this.allVoices = voices;
-    console.log(this.allVoices) ;
+    console.log(this.allVoices, " voices") ;
 
   }
 
   speakTranslation(translatedWord :string){
-    if(this.allVoices.length){
+    if(this.allVoices && this.allVoices.length){
       let u = new SpeechSynthesisUtterance();
-      let lang = this.langArray.find((x) => x.code == this.selectedLang).lang;
-      let index = this.allVoices.findIndex((x) => x.lang == lang);
+      let lang = this.langArray.find((x) => x.code == this.selectedLang);
+      let index;
+      if(lang){
+        index = this.allVoices.findIndex((x) => x.lang == lang.lang);
+      }
       u.voice =  this.allVoices[index];
-       u.lang = u.voice.lang;
+      u.lang = u.voice.lang;
       u.text =translatedWord;
       u.rate = 0.8;
       speechSynthesis.speak(u);
+      console.log(u, " uuuuuuuuu")
     }else{
       this.getAllVoices();
     }

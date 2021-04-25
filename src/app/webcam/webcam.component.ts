@@ -27,7 +27,7 @@ export class WebcamComponent implements OnInit {
   private trigger: Subject<void> = new Subject<void>();
   private model: any;
   private found = false;
-  private viewPortWidth: number = 480;
+  public viewPortWidth: number = 480;
 
   camWidth : 320;
   camHeight : 480;

@@ -128,46 +128,46 @@ export class AppComponent {
     switch (this.selectedLang) {
       case "mar": {
         this.addObject(this.mar, word);
-        if (this.mar.length)
+        if (this.mar && this.mar !== 'undefine' && this.mar.length)
           translate = this.mar.find((x) => x.object == word).translation;
         break;
       }
       case "hin": {
         this.addObject(this.hin, word);
-        if (this.hin.length)
+        if (this.hin && this.hin !== 'undefine' &&  this.hin.length)
           translate = this.hin.find((x) => x.object == word).translation;
         break;
       }
       case "nl": {
         this.addObject(this.nl, word);
-        if (this.nl.length)
-          translate = this.nl.find((x) => x.object == word).translation;
+        if (this.nl && this.nl !== 'undefine' && this.nl.length)
+           translate = this.nl.find((x) => x.object == word).translation;
         break;
       }
       case "de": {
         this.addObject(this.de, word);
-        if (this.de.length)
+        if (this.de && this.de !== 'undefine' && this.de.length)
           translate = this.de.find((x) => x.object == word).translation;
         break;
       }
 
       case "tr": {
         this.addObject(this.tr, word);
-        if (this.tr.length)
+        if (this.tr && this.tr !== 'undefine' && this.tr.length)
           translate = this.tr.find((x) => x.object == word).translation;
         break;
       }
 
       case "pl": {
         this.addObject(this.pl, word);
-        if (this.pl.length)
+        if (this.pl && this.pl !== 'undefine' && this.pl.length)
           translate = this.pl.find((x) => x.object == word).translation;
         break;
       }
 
       case "es": {
-        this.addObject(this.de, word);
-        if (this.es.length)
+        this.addObject(this.es, word);
+        if (this.es && this.es !== 'undefine' && this.es.length)
           translate = this.es.find((x) => x.object == word).translation;
         break;
       }

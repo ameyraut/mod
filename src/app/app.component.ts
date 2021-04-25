@@ -94,35 +94,6 @@ export class AppComponent {
       this.isTranslationAvailable = false;
     }
   }
-
-    setUpVoices(){
-
-    //  this.allVoices = voices;
-
-  }
-//   getPrimaryLanguages(langlist){
-//     let langs = [];
-//     langlist.forEach(vobj => {
-//       langs.push(vobj.substring(0,2));
-//     });
-//     return [...new Set(langs)];
-//   }
-
-//  filterVoices(){
-//     let langcode = this.selectedLang;
-//     let voices = this.allVoices.filter(function (voice) {
-//       return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0;
-//     });
-//   }
-
-//     getAllLanguages(voices){
-//     let langs = [];
-//     voices.forEach(vobj => {
-//       langs.push(vobj.lang.trim());
-//     });
-//     return [...new Set(langs)];
-//   }
-
    getAllVoices() {
     let voicesall = speechSynthesis.getVoices();
     let vuris = [];

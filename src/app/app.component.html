@@ -16,8 +16,6 @@
     </div>
     <div class="detected-objects">
       <h2>Detected objects </h2>
-      <button type="button" (click)="speakTranslation('hello')"> test</button>
-
       <ul class="list-unstyled">
         <ng-container *ngFor="let result of results">
           <li (click)="speakTranslation(showTranslation(result.object))">

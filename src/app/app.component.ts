@@ -13,7 +13,7 @@ export class AppComponent {
   langArray: any = [];
   selectedLang: string = "de";
   private canCallAPI = true;
-  public limitMessage :boolean = true;
+  public limitMessage :boolean = false;
   isTranslationAvailable :boolean = true;
   mar: any = [];
   hin: any = [];
@@ -24,7 +24,7 @@ export class AppComponent {
   tr: any = [];
   pl: any = [];
   es: any = [];
-  allVoices: any[];
+  allVoices: any;
   constructor(private translateService: TranslateService) {}
   data: PredictionConfig = {
     objectToDetect: "person",
@@ -94,6 +94,7 @@ export class AppComponent {
       this.isTranslationAvailable = false;
     }
   }
+
    getAllVoices() {
     let voicesall = speechSynthesis.getVoices();
     let vuris = [];
@@ -108,19 +109,24 @@ export class AppComponent {
     });
     voices.forEach(function(obj,index){obj.id = index;});
     this.allVoices = voices;
-    return voices;
+    console.log(this.allVoices) ;
+
   }
 
   speakTranslation(translatedWord :string){
-    let u = new SpeechSynthesisUtterance();
-    let voices = this.getAllVoices();
-    let lang = this.langArray.find((x) => x.code == this.selectedLang).lang;
-    let index = voices.findIndex((x) => x.lang == lang);
-    u.voice = voices[index];
-     u.lang = u.voice.lang;
-    u.text =translatedWord;
-    u.rate = 0.8;
-    speechSynthesis.speak(u);
+    if(this.allVoices.length){
+      let u = new SpeechSynthesisUtterance();
+      let lang = this.langArray.find((x) => x.code == this.selectedLang).lang;
+      let index = this.allVoices.findIndex((x) => x.lang == lang);
+      u.voice =  this.allVoices[index];
+       u.lang = u.voice.lang;
+      u.text =translatedWord;
+      u.rate = 0.8;
+      speechSynthesis.speak(u);
+    }else{
+      this.getAllVoices();
+    }
+
   }
 
   handlePredictionChange(results: PredictionResult[]): void {
@@ -132,6 +138,10 @@ export class AppComponent {
   },[]);
 
     this.results = filterArray;
+  }
+
+  setLang (event){
+    this.selectedLang = event;
   }
 
   getTranslation(word, langArray) {
@@ -203,6 +213,13 @@ export class AppComponent {
         this.addObject(this.tr, word);
         if (this.tr && this.tr !== 'undefined' && this.tr.length)
           translate = this.tr.find((x) => x.object == word).translation;
+        break;
+      }
+
+      case "it": {
+        this.addObject(this.it, word);
+        if (this.it && this.it !== 'undefined' && this.tr.length)
+          translate = this.it.find((x) => x.object == word).translation;
         break;
       }
 

@@ -128,7 +128,9 @@ webcam {
   text-align: center;
   }
 }
-
+.list-unstyled li:active {
+   background: #f1f1f1;
+}
 .list-unstyled{
   margin: 0;
   padding: 0;
@@ -169,7 +171,7 @@ webcam {
 @media only screen and (min-width: 360px) {
   .video-wrapper {
     transform: scale(0.75) translateX(0);
-    min-height: 340px;
+    min-height: 320px;
   }
   .float-box {
     margin: -25px auto 0;
@@ -181,7 +183,7 @@ webcam {
     transform: scale(0.75) translateX(-4%);
     position: relative;
     transform-origin: top center;
-    min-height: 360px;
+    min-height: 340px;
     margin: 0 auto;
   }
   .float-box {

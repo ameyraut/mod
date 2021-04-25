@@ -29,9 +29,6 @@ export class WebcamComponent implements OnInit {
   private found = false;
   public viewPortWidth: number = 480;
 
-  camWidth : 320;
-  camHeight : 480;
-
   ngOnInit(): void {
     this.getViewPortWidth();
     // For debugging purposes

@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { PredictionConfig } from "./model/prediction-config";
 import { PredictionResult } from "./model/prediction-result";
 import { TranslateService } from "./services/translate.service";
-
+import { Observable } from 'rxjs';
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -13,6 +13,8 @@ export class AppComponent {
   langArray: any = [];
   selectedLang: string = "de";
   private canCallAPI = true;
+  public limitMessage :boolean = true;
+  isTranslationAvailable :boolean = true;
   mar: any = [];
   hin: any = [];
   nl: any = [];
@@ -22,6 +24,7 @@ export class AppComponent {
   tr: any = [];
   pl: any = [];
   es: any = [];
+  allVoices: any[];
   constructor(private translateService: TranslateService) {}
   data: PredictionConfig = {
     objectToDetect: "person",
@@ -35,54 +38,123 @@ export class AppComponent {
       {
         name: "Dutch",
         code: "nl",
-        lang: "nl",
+        lang: "nl-NL",
       },
       {
         name: "French",
         code: "fr",
-        lang: "fr",
+        lang: "fr-FR",
       },
       {
         name: "German",
         code: "de",
-        lang: "de",
+        lang: "de-DE",
       },
       {
         name: "Hindi",
         code: "hin",
-        lang: "hi",
+        lang: "hi-IN",
       },
       {
         name: "Italian",
         code: "it",
-        lang: "it",
+        lang: "it-IT",
       },
       {
         name: "Marathi",
         code: "mar",
-        lang: "hi",
+        lang: "hi-IN",
       },
       {
         name: "Polish",
         code: "pl",
-        lang: "pl",
+        lang: "pl-PL",
       },
       {
         name: "Spanish",
         code: "es",
-        lang: "es",
+        lang: "es-ES",
       },
       {
         name: "Turkis",
         code: "tr",
-        lang: "tr",
+        lang: "tr-TR",
       },
     ];
+
+
+    if (window.speechSynthesis) {
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        this.isTranslationAvailable = true;
+        //Chrome gets the voices asynchronously so this is needed
+         speechSynthesis.onvoiceschanged = this.getAllVoices;
+      }
+     this.getAllVoices(); //for all the other browsers
+    }else{
+      this.isTranslationAvailable = false;
+    }
+  }
+
+    setUpVoices(){
+
+    //  this.allVoices = voices;
+
+  }
+//   getPrimaryLanguages(langlist){
+//     let langs = [];
+//     langlist.forEach(vobj => {
+//       langs.push(vobj.substring(0,2));
+//     });
+//     return [...new Set(langs)];
+//   }
+
+//  filterVoices(){
+//     let langcode = this.selectedLang;
+//     let voices = this.allVoices.filter(function (voice) {
+//       return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0;
+//     });
+//   }
+
+//     getAllLanguages(voices){
+//     let langs = [];
+//     voices.forEach(vobj => {
+//       langs.push(vobj.lang.trim());
+//     });
+//     return [...new Set(langs)];
+//   }
+
+   getAllVoices() {
+    let voicesall = speechSynthesis.getVoices();
+    let vuris = [];
+    let voices = [];
+    //unfortunately we have to check for duplicates
+    voicesall.forEach(function(obj,index){
+      let uri = obj.voiceURI;
+      if (!vuris.includes(uri)){
+          vuris.push(uri);
+          voices.push(obj);
+       }
+    });
+    voices.forEach(function(obj,index){obj.id = index;});
+    this.allVoices = voices;
+    return voices;
+  }
+
+  speakTranslation(translatedWord :string){
+    let u = new SpeechSynthesisUtterance();
+    let voices = this.getAllVoices();
+    let lang = this.langArray.find((x) => x.code == this.selectedLang).lang;
+    let index = voices.findIndex((x) => x.lang == lang);
+    u.voice = voices[index];
+     u.lang = u.voice.lang;
+    u.text =translatedWord;
+    u.rate = 0.8;
+    speechSynthesis.speak(u);
   }
 
   handlePredictionChange(results: PredictionResult[]): void {
     let  filterArray = results.reduce((accumalator, current) => {
-      if(!accumalator.some(item => item.object === current.object)) {
+      if(!accumalator.some(item => item.translation === current.object)) {
         accumalator.push(current);
       }
       return accumalator;
@@ -96,14 +168,19 @@ export class AppComponent {
     this.translateService
       .getTranslation(word, this.selectedLang)
       .subscribe((response) => {
-        this.tranlationData = response.responseData;
-        langArray.push({
-          object: word,
-          translation: this.tranlationData.translatedText,
-        });
-        this.canCallAPI = true;
-        return this.tranlationData.translatedText;
-      });
+          this.limitMessage = false;
+          this.tranlationData = response.responseData;
+          langArray.push({
+            object: word,
+            translation: this.tranlationData.translatedText,
+          });
+          this.canCallAPI = true;
+          return this.tranlationData.translatedText;
+
+      }),
+      (err) => {
+        this.limitMessage = true;
+      }
   }
 
   addObject(langArray, word) {
@@ -120,7 +197,7 @@ export class AppComponent {
     } else {
       translation = this.getTranslation(word, langArray);
     }
-    return translation || 'loading...';
+    return translation;
   }
 
   showTranslation(word: string) {
@@ -128,46 +205,46 @@ export class AppComponent {
     switch (this.selectedLang) {
       case "mar": {
         this.addObject(this.mar, word);
-        if (this.mar && this.mar !== 'undefine' && this.mar.length)
+        if (this.mar && this.mar !== 'undefined' && this.mar.length)
           translate = this.mar.find((x) => x.object == word).translation;
         break;
       }
       case "hin": {
         this.addObject(this.hin, word);
-        if (this.hin && this.hin !== 'undefine' &&  this.hin.length)
+        if (this.hin && this.hin !== 'undefined' &&  this.hin.length)
           translate = this.hin.find((x) => x.object == word).translation;
         break;
       }
       case "nl": {
         this.addObject(this.nl, word);
-        if (this.nl && this.nl !== 'undefine' && this.nl.length)
+        if (this.nl && this.nl !== 'undefined' && this.nl.length)
            translate = this.nl.find((x) => x.object == word).translation;
         break;
       }
       case "de": {
         this.addObject(this.de, word);
-        if (this.de && this.de !== 'undefine' && this.de.length)
+        if (this.de && this.de !== 'undefined' && this.de.length)
           translate = this.de.find((x) => x.object == word).translation;
         break;
       }
 
       case "tr": {
         this.addObject(this.tr, word);
-        if (this.tr && this.tr !== 'undefine' && this.tr.length)
+        if (this.tr && this.tr !== 'undefined' && this.tr.length)
           translate = this.tr.find((x) => x.object == word).translation;
         break;
       }
 
       case "pl": {
         this.addObject(this.pl, word);
-        if (this.pl && this.pl !== 'undefine' && this.pl.length)
+        if (this.pl && this.pl !== 'undefined' && this.pl.length)
           translate = this.pl.find((x) => x.object == word).translation;
         break;
       }
 
       case "es": {
         this.addObject(this.es, word);
-        if (this.es && this.es !== 'undefine' && this.es.length)
+        if (this.es && this.es !== 'undefined' && this.es.length)
           translate = this.es.find((x) => x.object == word).translation;
         break;
       }

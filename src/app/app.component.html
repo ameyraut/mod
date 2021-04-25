@@ -16,12 +16,16 @@
     </div>
     <div class="detected-objects">
       <h2>Detected objects </h2>
+      <button type="button" (click)="speakTranslation('hello')"> test</button>
+
       <ul class="list-unstyled">
         <ng-container *ngFor="let result of results">
-          <li>
+          <li (click)="speakTranslation(showTranslation(result.object))">
             <span class="object-name">{{ result.object }}</span>
-            <span class="translation">{{showTranslation(result.object)}}</span>
-            <span class="spk"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+            <span class="translation">{{showTranslation(result.object)}}
+              <ng-container *ngIf="limitMessage"> Translation Limit Exceeds</ng-container>
+            </span>
+            <span *ngIf="isTranslationAvailable" class="spk"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
                 xml:space="preserve" version="1.0" id="layer1" width="14pt" height="14pt" viewBox="0 0 75 75">
                 <metadata id="metadata1"> </metadata>
                 <g id="g1">

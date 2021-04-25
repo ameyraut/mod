@@ -164,24 +164,24 @@ webcam {
 
 @media only screen and (min-width: 360px) {
   .video-wrapper {
-    transform: scale(0.55) translateX(0);
-    max-height: 280px;
+    transform: scale(0.75) translateX(0);
+    min-height: 360px;
   }
   .float-box {
-    margin: -38px auto 0;
+    margin: -20px auto 0;
   }
 }
 
 @media only screen and (min-width: 480px) {
   .video-wrapper {
-    transform: scale(0.5) translateX(-4%);
+    transform: scale(0.75) translateX(-4%);
     position: relative;
     transform-origin: top center;
-    max-height: 280px;
+    min-height: 360px;
     margin: 0 auto;
   }
   .float-box {
-    margin: -24px auto 0;
+    margin: -10px auto 0;
   }
   header h1 {
     text-align: center;
@@ -193,6 +193,7 @@ webcam {
     position: relative;
     transform-origin: none;
     max-height: 100%;
+    min-height: 100%;
   }
 }
 

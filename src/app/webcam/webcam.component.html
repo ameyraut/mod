@@ -1,0 +1,9 @@
+<div class="d-flex">
+  <div class="video-wrapper">
+    <webcam [trigger]="triggerObservable" [imageQuality]="0.92" [captureImageData]="true" (initError)="error($event)"
+      (imageCapture)="capture($event)" width='640' height='480' allowCameraSwitch=true mirrorImage='never'></webcam>
+
+    <canvas #canvas id="canvas" [width]="640" [height]="480"></canvas>
+  </div>
+</div>
+

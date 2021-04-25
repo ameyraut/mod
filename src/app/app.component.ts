@@ -81,7 +81,14 @@ export class AppComponent {
   }
 
   handlePredictionChange(results: PredictionResult[]): void {
-    this.results = results;
+    let  filterArray = results.reduce((accumalator, current) => {
+      if(!accumalator.some(item => item.object === current.object)) {
+        accumalator.push(current);
+      }
+      return accumalator;
+  },[]);
+
+    this.results = filterArray;
   }
 
   getTranslation(word, langArray) {
@@ -113,7 +120,7 @@ export class AppComponent {
     } else {
       translation = this.getTranslation(word, langArray);
     }
-    return translation;
+    return translation || 'loading...';
   }
 
   showTranslation(word: string) {

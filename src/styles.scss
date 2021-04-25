@@ -47,6 +47,7 @@ header h1 {
   position: relative;
   z-index: 1;
   padding: 15px 15px 2px;
+  text-align: center;
 }
 
 .found {
@@ -65,8 +66,8 @@ webcam,
   left: 0;
   right: 0;
   text-align: center;
-  width: 640px;
-  height: 480px;
+  // width: 640px;
+  // height: 480px;
   top: 0;
   display: block;
   border-radius: 20px;
@@ -110,6 +111,7 @@ webcam {
     padding: 5px;
     font-weight: bold;
     color: #0f5c69;
+   background: #FFF;
   }
 
 }

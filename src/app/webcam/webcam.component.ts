@@ -27,8 +27,13 @@ export class WebcamComponent implements OnInit {
   private trigger: Subject<void> = new Subject<void>();
   private model: any;
   private found = false;
+  private viewPortWidth: number = 480;
+
+  camWidth : 320;
+  camHeight : 480;
 
   ngOnInit(): void {
+    this.getViewPortWidth();
     // For debugging purposes
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => console.log('Detected devices:', mediaDevices));
@@ -55,6 +60,10 @@ export class WebcamComponent implements OnInit {
     // Snapshot interval
     setInterval(() => this.trigger.next(), SNAPSHOT_INTERVAL);
   }
+
+  public getViewPortWidth() {
+  this.viewPortWidth = window.innerWidth;
+}
 
   error(error: WebcamInitError): void {
     console.error('Cannot initialize:', error);

@@ -1,0 +1,51 @@
+<header>
+  <h1>Multilingual object detection</h1>
+</header>
+<main>
+  <div class="container">
+    <app-webcam [objectToPredict]="data.objectToDetect" (predictionChange)="handlePredictionChange($event)">
+    </app-webcam>
+
+    <div class="lang-selection">
+      <div class="float-box">
+        <select name="lang" id="lang" [(ngModel)]="selectedLang">
+          <option *ngFor="let lang of langArray" [value]="lang.code"> {{lang.name}}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="detected-objects">
+      <h2>Detected objects </h2>
+      <ul class="list-unstyled">
+        <ng-container *ngFor="let result of results">
+          <li>
+            <span class="object-name">{{ result.object }}</span>
+            <span class="translation">{{showTranslation(result.object)}}</span>
+            <span class="spk"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+                xml:space="preserve" version="1.0" id="layer1" width="14pt" height="14pt" viewBox="0 0 75 75">
+                <metadata id="metadata1"> </metadata>
+                <g id="g1">
+                  <polygon id="polygon1"
+                    points="39.389,13.769 22.235,28.606 6,28.606 6,47.699 21.989,47.699 39.389,62.75 39.389,13.769"
+                    style="stroke:#7c818a;stroke-width:5;stroke-linejoin:round;fill:#7c818a;" />
+                  <path id="path1"
+                    d="M 48.128,49.03 C 50.057,45.934 51.19,42.291 51.19,38.377 C 51.19,34.399 50.026,30.703 48.043,27.577"
+                    style="fill:none;stroke:#7c818a;stroke-width:5;stroke-linecap:round" />
+                  <path id="path2"
+                    d="M 55.082,20.537 C 58.777,25.523 60.966,31.694 60.966,38.377 C 60.966,44.998 58.815,51.115 55.178,56.076"
+                    style="fill:none;stroke:#7c818a;stroke-width:5;stroke-linecap:round" />
+                  <path id="path1"
+                    d="M 61.71,62.611 C 66.977,55.945 70.128,47.531 70.128,38.378 C 70.128,29.161 66.936,20.696 61.609,14.01"
+                    style="fill:none;stroke:#7c818a;stroke-width:5;stroke-linecap:round" />
+                </g>
+              </svg></span>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+
+  </div>
+</main>
+<footer>
+  <a href="http://www.ameyraut.com">www.ameyraut.com</a>
+</footer>

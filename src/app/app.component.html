@@ -23,7 +23,7 @@
           <li (click)="speakTranslation(showTranslation(result.object))">
             <span class="object-name">{{ result.object }}</span>
             <span class="translation">{{showTranslation(result.object)}}
-              <ng-container *ngIf="limitMessage"> Translation Limit Exceeds</ng-container>
+              <small *ngIf="limitMessage"> Translation Limit Exceeds</small>
             </span>
             <span *ngIf="isTranslationAvailable" class="spk"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
                 xml:space="preserve" version="1.0" id="layer1" width="14pt" height="14pt" viewBox="0 0 75 75">

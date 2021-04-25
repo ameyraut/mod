@@ -162,6 +162,10 @@ webcam {
   }
 }
 
+.translation small{
+  color: red;
+}
+
 @media only screen and (min-width: 360px) {
   .video-wrapper {
     transform: scale(0.75) translateX(0);

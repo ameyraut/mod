@@ -72,11 +72,15 @@ export class WebcamComponent implements OnInit {
 
     setTimeout(() =>{
       this.setMessage= "Please wait, it will take some time to load. \n Coco Model can detect 80 Objects for now";
-    },12000);
+    },15000);
 
     setTimeout(() =>{
       this.setMessage= "Please wait, we are almost done..";
-    },30000);
+    },35000);
+
+    setTimeout(() =>{
+      this.setMessage= "I know its taking long, But loading is only for first time. \n  Thanks you!";
+    },60000);
   }
 
   public getViewPortWidth() {

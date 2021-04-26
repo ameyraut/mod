@@ -1,10 +1,13 @@
 # App
 
-Real Time Multilunage Obect Detection App  - Angular + Tansorflow.js 
+Real Time Multi-lingual Obect Detection App  - Angular + Tansorflow.js 
 
 Simple application to detect object in the camera view based on COCO-SSD.
-It can Detect upto 80 object and transalte  and speeek the world in 6 other langauges using SpeechSynthesis - Web API.
+It can Detect upto 80 object and transalte  and speeek the world in 8 other langauges using SpeechSynthesis - Web API.
  
+##  Demo
+
+http://ameyraut.github.io/mod
 
 ##  Credits
 

@@ -9,7 +9,7 @@ import { Prediction } from '../model/prediction';
 import confetti from 'canvas-confetti';
 import { findLast } from '@angular/compiler/src/directive_resolver';
 
-const SNAPSHOT_INTERVAL =1000;
+const SNAPSHOT_INTERVAL =2000;
 
 @Component({
   selector: 'app-webcam',

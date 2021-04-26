@@ -79,7 +79,7 @@ export class WebcamComponent implements OnInit {
     },35000);
 
     setTimeout(() =>{
-      this.setMessage= "I know its taking long, But this is only for first time page load. \n  Thanks you!";
+      this.setMessage= "I know its taking long, But this is only wbhen page load first time on your device. \n  Thanks you!";
     },60000);
   }
 

@@ -71,7 +71,7 @@ export class WebcamComponent implements OnInit {
     setInterval(() => this.trigger.next(), SNAPSHOT_INTERVAL);
 
     setTimeout(() =>{
-      this.setMessage= "Please wait, it will take some time to load. \n Coco Model can detect 80 Objects for now";
+      this.setMessage= "Please wait, it will take some time to load. \n Coco Model can detect upto 80 Objects for now";
     },15000);
 
     setTimeout(() =>{
@@ -79,7 +79,7 @@ export class WebcamComponent implements OnInit {
     },35000);
 
     setTimeout(() =>{
-      this.setMessage= "I know its taking long, But loading is only for first time. \n  Thanks you!";
+      this.setMessage= "I know its taking long, But this is only for first time page load. \n  Thanks you!";
     },60000);
   }
 

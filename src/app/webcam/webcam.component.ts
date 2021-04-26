@@ -24,6 +24,7 @@ export class WebcamComponent implements OnInit {
   @ViewChild('canvas', {read: ElementRef, static: false}) canvas: ElementRef<any>;
   webcamImage: WebcamImage;
   predictions: Prediction[] = [];
+  public setMessage :string = "Started loading Coco model ";
 
   private trigger: Subject<void> = new Subject<void>();
   private model: any;
@@ -68,6 +69,14 @@ export class WebcamComponent implements OnInit {
 
     // Snapshot interval
     setInterval(() => this.trigger.next(), SNAPSHOT_INTERVAL);
+
+    setTimeout(() =>{
+      this.setMessage= "Please wait, it will take some time to load. \n Coco Model can detect 80 Objects for now";
+    },12000);
+
+    setTimeout(() =>{
+      this.setMessage= "Please wait, we are almost done..";
+    },30000);
   }
 
   public getViewPortWidth() {

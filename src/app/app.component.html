@@ -8,8 +8,8 @@
 
     <div class="lang-selection">
       <div class="float-box">
-        <select name="lang" id="lang" [(ngModel)]="selectedLang">
-          <option *ngFor="let lang of langArray" [value]="lang.code"> {{lang.name}}</option>
+        <select name="lang" id="lang" [(ngModel)]="setlangIndex" (change)="setLang($event)">
+          <option *ngFor="let lang of langArray" data-lang="{{lang.lang}}" [value]="lang.code"> {{lang.name}}</option>
         </select>
       </div>
 
@@ -51,3 +51,4 @@
 <footer>
   <a href="http://www.ameyraut.com">www.ameyraut.com</a>
 </footer>
+<app-spinner *ngIf="showSpinner" [loadingText]="'Please wait.'"></app-spinner>

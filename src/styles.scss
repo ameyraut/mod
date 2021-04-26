@@ -86,6 +86,7 @@ webcam {
 #canvas {
   position: absolute;
   z-index: 9;
+  pointer-events: none;
 }
 
 .d-flex {

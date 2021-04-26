@@ -7,6 +7,7 @@ import { PredictionResult } from '../model/prediction-result';
 import { Prediction } from '../model/prediction';
 
 import confetti from 'canvas-confetti';
+import { findLast } from '@angular/compiler/src/directive_resolver';
 
 const SNAPSHOT_INTERVAL =1000;
 
@@ -28,17 +29,28 @@ export class WebcamComponent implements OnInit {
   private model: any;
   private found = false;
   public viewPortWidth: number = 480;
-
+  public showSpinner: boolean = true;
+  public isCocoLoaded: boolean;
   ngOnInit(): void {
     this.getViewPortWidth();
     // For debugging purposes
     WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => console.log('Detected devices:', mediaDevices));
+      .then((mediaDevices: MediaDeviceInfo[]) =>{
+        console.log('Detected devices:', mediaDevices)
+        this.showSpinner = false;
+      } );
 
     // Load CocoSsd model
     coco.load()
-      .then(model => this.model = model)
-      .catch(err => console.log('Cannot load model', err));
+      .then((model) =>{
+        this.model = model;
+        console.log( this.model,'model loaded');
+        this.isCocoLoaded = true;
+      })
+      .catch((err) => {
+        console.log('Cannot load model', err);
+        this.isCocoLoaded = true;
+      });
 
     // Render predictions for snapshots, based on the provided model
     this.trigger.subscribe(() => {
@@ -74,6 +86,10 @@ export class WebcamComponent implements OnInit {
     return this.trigger.asObservable();
   }
 
+
+  isCocoLoadCompletd(){
+     return !this.isCocoLoaded;
+  }
 
 
   /**

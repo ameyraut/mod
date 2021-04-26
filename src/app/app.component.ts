@@ -27,6 +27,7 @@ export class AppComponent {
   allVoices: any;
   setlangIndex: number = 0;
   showSpinner: boolean = true;
+  isLangaugeloaded : boolean = false;
   constructor(private translateService: TranslateService) {}
   data: PredictionConfig = {
     objectToDetect: "person",
@@ -116,6 +117,7 @@ export class AppComponent {
     this.allVoices = voices;
     console.log(this.allVoices, " voices");
     this.showSpinner = false;
+
   }
 
   speakTranslation(translatedWord: string) {
@@ -127,8 +129,12 @@ export class AppComponent {
       u.rate = 0.8;
       speechSynthesis.speak(u);
       console.log(u, " uuuuuuuuu");
+      this.isLangaugeloaded = true;
     } else {
       this.getAllVoices();
+      setTimeout(() =>{
+        this.speakTranslation(translatedWord);
+      },3500);
     }
   }
 
@@ -149,9 +155,7 @@ export class AppComponent {
   setLang(event) {
     this.setlangIndex = event.target.value;
     const selectEl = event.target;
-    this.selectedLang = selectEl.options[selectEl.selectedIndex].getAttribute(
-      "data-lang"
-    );
+    this.selectedLang =  this.langArray[selectEl.selectedIndex].lang;
   }
 
   getTranslation(word, langArray) {
@@ -199,7 +203,7 @@ export class AppComponent {
           translate = this.mar.find((x) => x.object == word).translation;
         break;
       }
-      case "hin": {
+      case "hi": {
         this.addObject(this.hin, word);
         if (this.hin && this.hin !== "undefined" && this.hin.length)
           translate = this.hin.find((x) => x.object == word).translation;

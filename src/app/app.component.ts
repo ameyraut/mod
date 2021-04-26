@@ -125,7 +125,7 @@ export class AppComponent {
       let u = new SpeechSynthesisUtterance();
       u.voice = this.allVoices[this.setlangIndex];
       u.lang = u.voice.lang;
-      u.text = translatedWord;
+      u.text = translatedWord || 'Please try again';
       u.rate = 0.8;
       speechSynthesis.speak(u);
       console.log(u, " uuuuuuuuu");
@@ -231,7 +231,7 @@ export class AppComponent {
 
       case "it": {
         this.addObject(this.it, word);
-        if (this.it && this.it !== "undefined" && this.tr.length)
+        if (this.it && this.it !== "undefined" && this.it.length)
           translate = this.it.find((x) => x.object == word).translation;
         break;
       }
@@ -240,6 +240,13 @@ export class AppComponent {
         this.addObject(this.pl, word);
         if (this.pl && this.pl !== "undefined" && this.pl.length)
           translate = this.pl.find((x) => x.object == word).translation;
+        break;
+      }
+
+      case "fr": {
+        this.addObject(this.fr, word);
+        if (this.fr && this.fr !== "undefined" && this.fr.length)
+          translate = this.fr.find((x) => x.object == word).translation;
         break;
       }
 
